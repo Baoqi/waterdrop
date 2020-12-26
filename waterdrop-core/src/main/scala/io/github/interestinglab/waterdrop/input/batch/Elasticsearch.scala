@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.input.batch
-
+/*
 import io.github.interestinglab.waterdrop.apis.BaseStaticInput
 import io.github.interestinglab.waterdrop.config.{Config, ConfigFactory}
 import io.github.interestinglab.waterdrop.config.TypesafeConfigUtils
@@ -64,3 +64,4 @@ class Elasticsearch extends BaseStaticInput {
       .load(index)
   }
 }
+*/

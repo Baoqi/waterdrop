@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.output.batch
-
+/*
 import java.text.SimpleDateFormat
 import java.util
 import java.util.Properties
@@ -451,3 +451,4 @@ object Clickhouse {
     }
   }
 }
+*/

@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.output.batch
-
+/*
 import java.util.Properties
 
 import io.github.interestinglab.waterdrop.config.{Config, ConfigFactory}
@@ -108,3 +108,4 @@ class Kafka extends BaseOutput {
     }
   }
 }
+*/

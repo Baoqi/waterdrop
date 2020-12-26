@@ -1,8 +1,8 @@
 name         := "Waterdrop"
-version      := "1.5.1"
+version      := "1.5.99"
 organization := "io.github.interestinglab.waterdrop"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.10"
 
 // resolved sbt assembly merging file conflicts.
 assemblyMergeStrategy in assembly := {
@@ -13,6 +13,8 @@ assemblyMergeStrategy in assembly := {
   case PathList(ps @ _*) if ps.last endsWith ".thrift" => MergeStrategy.first
   case PathList(ps @ _*) if ps.last endsWith ".properties" => MergeStrategy.first
   case PathList(ps @ _*) if ps.last endsWith ".fmpp" => MergeStrategy.first
+  case PathList(ps @ _*) if ps.last endsWith ".xsd" => MergeStrategy.first
+  case PathList(ps @ _*) if ps.last endsWith ".dtd" => MergeStrategy.first
   case "UnusedStubClass.class" => MergeStrategy.last
   case x =>
     val oldStrategy = (assemblyMergeStrategy in assembly).value

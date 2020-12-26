@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.input.structuredstreaming
-
+/*
 import java.time.Duration
 import java.util
 import java.util.Properties
@@ -178,3 +178,4 @@ class KafkaStream extends BaseStructuredStreamingInput {
     })
   }
 }
+*/

@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.output.utils
-
+/*
 import com.mongodb.MongoClient
 import io.github.interestinglab.waterdrop.config.Config
 
@@ -23,3 +23,4 @@ object MongoClientUtil {
     new MongoClientUtil(f)
   }
 }
+*/

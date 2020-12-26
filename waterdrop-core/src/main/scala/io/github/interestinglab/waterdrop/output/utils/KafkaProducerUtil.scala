@@ -1,7 +1,7 @@
 package io.github.interestinglab.waterdrop.output.utils
 
 import java.util.Properties
-
+/*
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 
 class KafkaProducerUtil(createProducer: () => KafkaProducer[String, String]) extends Serializable {
@@ -26,3 +26,4 @@ object KafkaProducerUtil {
     new KafkaProducerUtil(f)
   }
 }
+*/

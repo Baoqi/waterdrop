@@ -1,12 +1,12 @@
 package io.github.interestinglab.waterdrop.input.batch
-
+/*
 import io.github.interestinglab.waterdrop.config.{Config, ConfigFactory}
 import io.github.interestinglab.waterdrop.apis.BaseStaticInput
 import org.apache.spark.sql.{Dataset, Row, SparkSession}
 import org.apache.spark.sql.types._
 import scala.collection.JavaConversions._
 import com.redislabs.provider.redis._
-
+*/
 /**
  * 使用spark.redis读取redis中数据，转化成DataFrame
  * Usage:
@@ -16,6 +16,7 @@ import com.redislabs.provider.redis._
  * db_num = 0
  * result_table_name = "table_name"
  * */
+/*
 class Redis extends BaseStaticInput {
   var config: Config = ConfigFactory.empty()
 
@@ -82,3 +83,4 @@ class Redis extends BaseStaticInput {
     ds
   }
 }
+*/

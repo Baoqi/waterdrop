@@ -1,11 +1,11 @@
 name         := "Waterdrop-core"
-version      := "1.5.1"
+version      := "1.5.99"
 organization := "io.github.interestinglab.waterdrop"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.10"
 
 
-val sparkVersion = "2.4.0"
+val sparkVersion = "3.0.1"
 
 // We should put all spark or hadoop dependencies here,
 //   if coresponding jar file exists in jars directory of online Spark distribution,
@@ -46,27 +46,27 @@ libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-sql-kafka-0-10" % sparkVersion,
   // --------------------------------------------------------
 
-  "org.mongodb.spark" %% "mongo-spark-connector" % "2.2.0",
-  "org.apache.kudu" %% "kudu-spark2" % "1.7.0",
+  //"org.mongodb.spark" %% "mongo-spark-connector" % "2.2.0",
+  //"org.apache.kudu" %% "kudu-spark2" % "1.7.0",
   "com.alibaba" % "QLExpress" % "3.2.0",
   "com.alibaba" % "fastjson" % "1.2.51",
   "com.alibaba" % "druid" % "1.1.10",
   "commons-lang" % "commons-lang" % "2.6",
   "io.thekraken" % "grok" % "0.1.5",
   "mysql" % "mysql-connector-java" % "5.1.6",
-  "org.elasticsearch" % "elasticsearch-spark-20_2.11" % "7.6.2",
+  //"org.elasticsearch" % "elasticsearch-spark-20_2.11" % "7.6.2",
   "com.github.scopt" %% "scopt" % "3.7.0",
   "org.apache.commons" % "commons-compress" % "1.15",
-  "com.pingcap.tispark" % "tispark-core" % "1.1"
-    excludeAll(ExclusionRule(organization="com.fasterxml.jackson.core")),
-  "com.pingcap.tikv" % "tikv-client" % "1.1",
+  //"com.pingcap.tispark" % "tispark-core" % "1.1"
+  //  excludeAll(ExclusionRule(organization="com.fasterxml.jackson.core")),
+  //"com.pingcap.tikv" % "tikv-client" % "1.1",
   "ru.yandex.clickhouse" % "clickhouse-jdbc" % "0.2.4"
     excludeAll(ExclusionRule(organization="com.fasterxml.jackson.core")),
   "com.databricks" %% "spark-xml" % "0.5.0",
   "org.apache.httpcomponents" % "httpasyncclient" % "4.1.3",
-  "redis.clients" % "jedis" % "2.9.0",
-  "org.apache.commons" % "commons-pool2" % "2.8.0",
-  "com.redislabs" % "spark-redis" % "2.3.0"
+  //"redis.clients" % "jedis" % "2.9.0",
+  "org.apache.commons" % "commons-pool2" % "2.8.0"
+  //"com.redislabs" % "spark-redis" % "2.3.0"
 ).map(_.exclude("com.typesafe", "config"))
 
 // TODO: exclude spark, hadoop by for all dependencies
@@ -77,7 +77,7 @@ dependencyOverrides += "com.google.guava" % "guava" % "15.0"
 
 resolvers += Resolver.mavenLocal
 
-javacOptions ++= Seq("-source", "1.7", "-target", "1.7")
+javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 

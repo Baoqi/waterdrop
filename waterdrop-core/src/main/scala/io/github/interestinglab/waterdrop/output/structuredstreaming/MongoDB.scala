@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.output.structuredstreaming
-
+/*
 import java.util
 
 import com.mongodb.client.MongoCollection
@@ -125,3 +125,4 @@ class MongoDB extends BaseStructuredStreamingOutput {
     StructuredUtils.writeWithTrigger(config, writer)
   }
 }
+*/

@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.input.batch
-
+/*
 import com.alibaba.fastjson.JSON
 import com.mongodb.spark.MongoSpark
 import com.mongodb.spark.config.ReadConfig
@@ -75,3 +75,4 @@ class MongoDB extends BaseStaticInput {
   }
 
 }
+*/

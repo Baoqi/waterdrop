@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.output.batch
-
+/*
 import io.github.interestinglab.waterdrop.config.{Config, ConfigFactory}
 import io.github.interestinglab.waterdrop.apis.BaseOutput
 import io.github.interestinglab.waterdrop.utils.StringTemplate
@@ -78,3 +78,4 @@ class Elasticsearch extends BaseOutput {
     df.saveToEs(index + "/" + config.getString("index_type"), this.esCfg)
   }
 }
+*/

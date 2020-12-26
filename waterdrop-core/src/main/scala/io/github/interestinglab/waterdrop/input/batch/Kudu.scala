@@ -1,10 +1,9 @@
 package io.github.interestinglab.waterdrop.input.batch
-
+/*
 import io.github.interestinglab.waterdrop.config.{Config, ConfigFactory}
 import io.github.interestinglab.waterdrop.apis.BaseStaticInput
 import org.apache.kudu.spark.kudu._
 import org.apache.spark.sql.{Dataset, Row, SparkSession}
-
 class Kudu extends BaseStaticInput {
 
   var config: Config = ConfigFactory.empty()
@@ -34,3 +33,4 @@ class Kudu extends BaseStaticInput {
     ds
   }
 }
+*/

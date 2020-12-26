@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.output.batch
-
+/*
 import io.github.interestinglab.waterdrop.config.{Config, ConfigFactory}
 import io.github.interestinglab.waterdrop.apis.BaseOutput
 import org.apache.spark.sql.execution.datasources.jdbc.JDBCOptions
@@ -97,3 +97,4 @@ class Tidb extends BaseOutput {
     }
   }
 }
+*/

@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.output.batch
-
+/*
 import com.mongodb.spark.MongoSpark
 import com.mongodb.spark.config.WriteConfig
 import io.github.interestinglab.waterdrop.config.{Config, ConfigFactory}
@@ -59,3 +59,4 @@ class MongoDB extends BaseOutput {
     MongoSpark.save(df, writeConfig)
   }
 }
+*/

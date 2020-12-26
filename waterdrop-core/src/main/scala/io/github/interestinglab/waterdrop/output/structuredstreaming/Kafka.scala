@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.output.structuredstreaming
-
+/*
 import java.util.Properties
 
 import com.alibaba.fastjson.JSONObject
@@ -134,3 +134,4 @@ class Kafka extends BaseStructuredStreamingOutput {
   }
 
 }
+*/

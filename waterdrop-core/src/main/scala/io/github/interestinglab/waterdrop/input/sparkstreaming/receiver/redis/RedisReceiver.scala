@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.input.sparkstreaming.redis
-
+/*
 import java.util
 
 import org.apache.commons.lang.StringUtils
@@ -97,3 +97,4 @@ class RedisReceiver(redisInfo: RedisInfo) extends Receiver[String](StorageLevel.
   }
 
 }
+*/

@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.input.batch
-
+/*
 import io.github.interestinglab.waterdrop.config.{Config, ConfigFactory}
 import io.github.interestinglab.waterdrop.apis.BaseStaticInput
 import org.apache.spark.sql.{Dataset, Row, SparkSession, TiContext}
@@ -30,3 +30,4 @@ class Tidb extends BaseStaticInput {
     spark.sql(config.getString("pre_sql"))
   }
 }
+*/

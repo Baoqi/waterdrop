@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.output.structuredstreaming
-
+/*
 import java.sql.Timestamp
 import java.util
 
@@ -183,3 +183,4 @@ class Opentsdb extends BaseStructuredStreamingOutput {
     ret
   }
 }
+*/

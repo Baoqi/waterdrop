@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.input.sparkstreaming
-
+/*
 import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.dstream.{DStream, InputDStream}
 import io.github.interestinglab.waterdrop.config.{Config, ConfigFactory}
@@ -126,3 +126,4 @@ class KafkaStream extends BaseStreamingInput[ConsumerRecord[String, String]] {
     spark.createDataFrame(rowsRDD, schema)
   }
 }
+*/

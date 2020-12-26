@@ -1,5 +1,5 @@
 package io.github.interestinglab.waterdrop.input.sparkstreaming
-
+/*
 import io.github.interestinglab.waterdrop.config.{Config, ConfigFactory}
 import io.github.interestinglab.waterdrop.apis.BaseStreamingInput
 import io.github.interestinglab.waterdrop.input.sparkstreaming.redis.{RedisInfo, RedisReceiver}
@@ -76,3 +76,4 @@ class RedisStream extends BaseStreamingInput[String] {
   }
 }
 
+*/

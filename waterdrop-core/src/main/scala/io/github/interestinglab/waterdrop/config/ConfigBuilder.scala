@@ -30,7 +30,7 @@ class ConfigBuilder(configFile: String) {
     // config file --> syste environment --> java properties
 
     Try({
-      val defaultFile = Paths.get(configFile).getParent.resolve("_default.conf").toFile
+      val defaultFile = Paths.get(configFile).toAbsolutePath.getParent.resolve("_default.conf").toFile
       val defaultConfig = Option(defaultFile.exists()).collect {
         case true =>
           ConfigFactory

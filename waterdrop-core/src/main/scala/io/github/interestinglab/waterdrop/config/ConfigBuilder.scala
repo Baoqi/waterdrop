@@ -64,7 +64,7 @@ class ConfigBuilder(configFile: String) {
     var filterList = List[BaseFilter]()
 
     val configList: List[Config] = if (config.hasPath("filter")) {
-      config.getConfigList("filter").asInstanceOf[List[Config]]
+      config.getConfigList("filter").asScala.toList
     } else {
       List.empty
     }

@@ -62,8 +62,13 @@ class ConfigBuilder(configFile: String) {
   def createFilters: List[BaseFilter] = {
 
     var filterList = List[BaseFilter]()
-    config
-      .getConfigList("filter")
+
+    val configList: List[Config] = if (config.hasPath("filter")) {
+      config.getConfigList("filter").asInstanceOf[List[Config]]
+    } else {
+      List.empty
+    }
+    configList
       .foreach(plugin => {
         val className = buildClassFullQualifier(plugin.getString(ConfigBuilder.PluginNameKey), "filter")
 

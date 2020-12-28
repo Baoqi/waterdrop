@@ -27,5 +27,9 @@ object CommandLineUtils {
     opt[String]('q', "queue")
       .optional()
       .text("spark queue")
+    opt[Int]('s', "sleep")
+      .optional()
+      .action((x, c) => c.copy(sleepSeconds = Option(x)))
+      .text("whether sleep specified seconds before stop spark (to get a chance to investigate spark web ui)")
   }
 }

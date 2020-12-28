@@ -34,7 +34,7 @@ object Waterdrop extends Logging {
             println("config OK !")
           }
           case false => {
-            Try(entrypoint(configFilePath)) match {
+            Try(entrypoint(configFilePath, cmdArgs.sleepSeconds)) match {
               case Success(_) => {}
               case Failure(exception) => {
                 exception match {
@@ -91,7 +91,7 @@ object Waterdrop extends Logging {
     throw new Exception(throwable)
   }
 
-  private def entrypoint(configFile: String): Unit = {
+  private def entrypoint(configFile: String, sleepSeconds: Option[Int]): Unit = {
 
     val configBuilder = new ConfigBuilder(configFile)
     println("[INFO] loading SparkConf: ")
@@ -116,7 +116,7 @@ object Waterdrop extends Logging {
     if (streamingInputs.nonEmpty) {
       streamingProcessing(sparkSession, configBuilder, staticInputs, streamingInputs, filters, outputs)
     } else {
-      batchProcessing(sparkSession, configBuilder, staticInputs, filters, outputs)
+      batchProcessing(sparkSession, configBuilder, staticInputs, filters, outputs, sleepSeconds)
     }
   }
 
@@ -184,7 +184,8 @@ object Waterdrop extends Logging {
     configBuilder: ConfigBuilder,
     staticInputs: List[BaseStaticInput],
     filters: List[BaseFilter],
-    outputs: List[BaseOutput]): Unit = {
+    outputs: List[BaseOutput],
+    sleepSeconds: Option[Int]): Unit = {
 
     basePrepare(sparkSession, staticInputs, filters, outputs)
 
@@ -213,6 +214,12 @@ object Waterdrop extends Logging {
       outputs.foreach(p => {
         outputProcess(sparkSession, p, ds)
       })
+
+      sleepSeconds.foreach{ t => {
+        logWarning(s"Spark Job Finished, begin to sleep $t seconds for investigation")
+        Thread.sleep(t * 1000)
+        logWarning(s"Finished to sleep $t seconds, exit!")
+      }}
 
       sparkSession.stop()
 

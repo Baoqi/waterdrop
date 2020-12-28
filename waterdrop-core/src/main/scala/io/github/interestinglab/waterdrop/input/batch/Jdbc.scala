@@ -21,9 +21,26 @@ class Jdbc extends BaseStaticInput {
     this.config
   }
 
+  private def checkTableOrQuery() = {
+    val tableExists = config.hasPath("table")
+    val queryExists = config.hasPath("query")
+
+    if (!tableExists && !queryExists) {
+      (
+        false,
+        "please specify either [table] or [query] as non-empty string")
+    } else if (tableExists && queryExists) {
+      (
+        false,
+        "you can only select one from either [table] or [query], but not both")
+    } else {
+      (true, "")
+    }
+  }
+
   override def checkConfig(): (Boolean, String) = {
 
-    val requiredOptions = List("url", "table", "user", "password", "driver");
+    val requiredOptions = List("url", "user", "password", "driver");
 
     val nonExistsOptions = requiredOptions.map(optionName => (optionName, config.hasPath(optionName))).filter { p =>
       val (optionName, exists) = p
@@ -31,7 +48,7 @@ class Jdbc extends BaseStaticInput {
     }
 
     if (nonExistsOptions.isEmpty) {
-      (true, "")
+      checkTableOrQuery()
     } else {
       (
         false,
@@ -47,13 +64,19 @@ class Jdbc extends BaseStaticInput {
 
   def jdbcReader(sparkSession: SparkSession, driver: String): DataFrameReader = {
 
-    val reader = sparkSession.read
+    var reader = sparkSession.read
       .format("jdbc")
       .option("url", config.getString("url"))
-      .option("dbtable", config.getString("table"))
       .option("user", config.getString("user"))
       .option("password", config.getString("password"))
       .option("driver", driver)
+
+    if (config.hasPath("table")) {
+      reader = reader.option("dbtable", config.getString("table"))
+    }
+    if (config.hasPath("query")) {
+      reader = reader.option("query", config.getString("query"))
+    }
 
     Try(TypesafeConfigUtils.extractSubConfigThrowable(config, "jdbc.", false)) match {
 

@@ -90,8 +90,8 @@ abstract class FileOutputBase extends BaseOutput {
 
         writer.options(optionMap)
       }
-      case Failure(exception) => // do nothing
-
+      case Failure(exception) =>
+        log.warn("exception occurred but ignored:", exception)
     }
 
     writer

@@ -7,7 +7,6 @@ import io.github.interestinglab.waterdrop.config.Config
 import io.github.interestinglab.waterdrop.config._
 import io.github.interestinglab.waterdrop.filter.UdfRegister
 import io.github.interestinglab.waterdrop.utils.CompressionUtils
-import io.github.interestinglab.waterdrop.utils.AsciiArt
 import org.apache.commons.lang3.exception.ExceptionUtils
 import org.apache.hadoop.fs.Path
 import org.apache.spark.SparkConf
@@ -67,7 +66,7 @@ object Waterdrop extends Logging {
   }
 
   private[waterdrop] def showWaterdropAsciiLogo(): Unit = {
-    AsciiArt.printAsciiArt("Waterdrop")
+    log.info("started!")
   }
 
   private[waterdrop] def showConfigError(throwable: Throwable): Unit = {

@@ -15,7 +15,8 @@ lazy val providedDependencies = Seq(
   "org.apache.spark" %% "spark-core" % sparkVersion,
   "org.apache.spark" %% "spark-sql" % sparkVersion,
   "org.apache.spark" %% "spark-streaming" % sparkVersion,
-  "org.apache.spark" %% "spark-hive" % sparkVersion
+  "org.apache.spark" %% "spark-hive" % sparkVersion,
+  "org.apache.spark" %% "spark-avro" % sparkVersion
 )
 
 // Change dependepcy scope to "provided" by : sbt -DprovidedDeps=true <task>
@@ -53,7 +54,7 @@ libraryDependencies ++= Seq(
   "com.alibaba" % "druid" % "1.1.10",
   "commons-lang" % "commons-lang" % "2.6",
   "io.thekraken" % "grok" % "0.1.5",
-  "mysql" % "mysql-connector-java" % "5.1.6",
+  "mysql" % "mysql-connector-java" % "5.1.47",
   //"org.elasticsearch" % "elasticsearch-spark-20_2.11" % "7.6.2",
   "com.github.scopt" %% "scopt" % "3.7.0",
   "org.apache.commons" % "commons-compress" % "1.15",

@@ -1,6 +1,7 @@
 package io.github.interestinglab.waterdrop.config
 
 import java.io.File
+import java.nio.file.Paths
 import java.util.ServiceLoader
 
 import scala.language.reflectiveCalls
@@ -29,10 +30,23 @@ class ConfigBuilder(configFile: String) {
     // config file --> syste environment --> java properties
 
     Try({
-      val config = ConfigFactory
+      val defaultFile = Paths.get(configFile).getParent.resolve("_default.conf").toFile
+      val defaultConfig = Option(defaultFile.exists()).collect {
+        case true =>
+          ConfigFactory
+            .parseFile(defaultFile)
+            .resolve(ConfigResolveOptions.defaults().setAllowUnresolved(true))
+            .resolveWith(ConfigFactory.systemProperties, ConfigResolveOptions.defaults.setAllowUnresolved(true))
+      }
+
+      var config = ConfigFactory
         .parseFile(new File(configFile))
         .resolve(ConfigResolveOptions.defaults().setAllowUnresolved(true))
         .resolveWith(ConfigFactory.systemProperties, ConfigResolveOptions.defaults.setAllowUnresolved(true))
+
+      defaultConfig.foreach { c =>
+        config = config.withFallback(c)
+      }
 
       val options: ConfigRenderOptions = ConfigRenderOptions.concise.setFormatted(true)
       println("[INFO] parsed config file: " + config.root().render(options))

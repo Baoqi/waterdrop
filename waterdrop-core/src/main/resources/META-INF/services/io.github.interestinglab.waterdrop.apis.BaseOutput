@@ -3,6 +3,7 @@
 io.github.interestinglab.waterdrop.output.batch.File
 io.github.interestinglab.waterdrop.output.batch.Hdfs
 io.github.interestinglab.waterdrop.output.batch.Jdbc
+io.github.interestinglab.waterdrop.output.batch.JdbcSql
 #io.github.interestinglab.waterdrop.output.batch.Kafka
 io.github.interestinglab.waterdrop.output.batch.Mysql
 io.github.interestinglab.waterdrop.output.batch.S3

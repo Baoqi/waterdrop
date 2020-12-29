@@ -13,7 +13,7 @@ import io.github.interestinglab.waterdrop.apis._
 import scala.util.{Failure, Success, Try}
 import util.control.Breaks._
 
-class ConfigBuilder(configFile: String) {
+class ConfigBuilder(configFile: String, logInfo: String => Unit) {
 
   val config = load()
 
@@ -24,7 +24,7 @@ class ConfigBuilder(configFile: String) {
       throw new ConfigRuntimeException("Please specify config file")
     }
 
-    println("[INFO] Loading config file: " + configFile)
+    logInfo("Loading config file: " + configFile)
 
     // variables substitution / variables resolution order:
     // config file --> syste environment --> java properties
@@ -49,7 +49,7 @@ class ConfigBuilder(configFile: String) {
       }
 
       val options: ConfigRenderOptions = ConfigRenderOptions.concise.setFormatted(true)
-      println("[INFO] parsed config file: " + config.root().render(options))
+      logInfo("parsed config file: " + config.root().render(options))
 
       config
     }) match {

@@ -22,7 +22,7 @@ object WaterdropStructuredStreaming extends Logging {
 
         cmdArgs.testConfig match {
           case true => {
-            new ConfigBuilder(configFilePath).checkConfig
+            new ConfigBuilder(configFilePath, msg => println(s"[INFO] $msg")).checkConfig
             println("config OK !")
           }
           case false => {
@@ -58,7 +58,7 @@ object WaterdropStructuredStreaming extends Logging {
 
   private def entrypoint(configFile: String): Unit = {
 
-    val configBuilder = new ConfigBuilder(configFile)
+    val configBuilder = new ConfigBuilder(configFile, msg => logInfo(msg))
     println("[INFO] loading SparkConf: ")
     val sparkConf = Waterdrop.createSparkConf(configBuilder)
     sparkConf.getAll.foreach(entry => {
@@ -69,7 +69,7 @@ object WaterdropStructuredStreaming extends Logging {
     val sparkSession = SparkSession.builder.config(sparkConf).getOrCreate()
 
     // find all user defined UDFs and register in application init
-    UdfRegister.findAndRegisterUdfs(sparkSession)
+    UdfRegister.findAndRegisterUdfs(sparkSession, log)
 
     val staticInputs = configBuilder.createStaticInputs("structuredstreaming")
     val streamingInputs = configBuilder.createStructuredStreamingInputs("structuredstreaming")

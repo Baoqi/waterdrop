@@ -9,6 +9,7 @@ import io.github.interestinglab.waterdrop.filter.UdfRegister
 import io.github.interestinglab.waterdrop.utils.CompressionUtils
 import org.apache.commons.lang3.exception.ExceptionUtils
 import org.apache.hadoop.fs.Path
+import org.apache.log4j.PropertyConfigurator
 import org.apache.spark.SparkConf
 import org.apache.spark.internal.Logging
 import org.apache.spark.sql.{Dataset, Row, SparkSession}
@@ -30,7 +31,7 @@ object Waterdrop extends Logging {
 
         cmdArgs.testConfig match {
           case true => {
-            new ConfigBuilder(configFilePath).checkConfig
+            new ConfigBuilder(configFilePath, msg => println(s"[INFO] $msg")).checkConfig
             println("config OK !")
           }
           case false => {
@@ -91,20 +92,28 @@ object Waterdrop extends Logging {
     throw new Exception(throwable)
   }
 
-  private def entrypoint(configFile: String, sleepSeconds: Option[Int]): Unit = {
+  private def initLog(configFile: String): Unit = {
+    val configBuilder = new ConfigBuilder(configFile, msg => ())
+    if (configBuilder.config.hasPath("log4j.properties")) {
+      PropertyConfigurator.configure(configBuilder.config.getString("log4j.properties"))
+    }
+  }
 
-    val configBuilder = new ConfigBuilder(configFile)
-    println("[INFO] loading SparkConf: ")
+  private def entrypoint(configFile: String, sleepSeconds: Option[Int]): Unit = {
+    initLog(configFile)
+
+    val configBuilder = new ConfigBuilder(configFile, msg => logInfo(msg))
     val sparkConf = createSparkConf(configBuilder)
-    sparkConf.getAll.foreach(entry => {
+    val kvs = sparkConf.getAll.map(entry => {
       val (key, value) = entry
-      println("\t" + key + " => " + value)
+      "\t" + key + " => " + value
     })
+    logInfo("loading SparkConf: \n" + kvs.mkString("\n"))
 
     val sparkSession = SparkSession.builder.config(sparkConf).getOrCreate()
 
     // find all user defined UDFs and register in application init
-    UdfRegister.findAndRegisterUdfs(sparkSession)
+    UdfRegister.findAndRegisterUdfs(sparkSession, log)
 
     val staticInputs = configBuilder.createStaticInputs("batch")
     val streamingInputs = configBuilder.createStreamingInputs("batch")

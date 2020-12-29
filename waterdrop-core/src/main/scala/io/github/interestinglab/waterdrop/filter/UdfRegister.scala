@@ -5,15 +5,16 @@ import java.util.ServiceLoader
 
 import io.github.interestinglab.waterdrop.apis.BaseFilter
 import org.apache.spark.sql.SparkSession
+import org.slf4j.Logger
 
 /**
  * Created by gaoyingju on 24/09/2017.
  */
 object UdfRegister {
 
-  def findAndRegisterUdfs(spark: SparkSession): Unit = {
+  def findAndRegisterUdfs(spark: SparkSession, log: Logger): Unit = {
 
-    println("find and register UDFs & UDAFs")
+    log.info("find and register UDFs & UDAFs")
 
     var udfCount = 0
     var udafCount = 0
@@ -35,6 +36,6 @@ object UdfRegister {
         })
     })
 
-    println("found and registered UDFs count[" + udfCount + "], UDAFs count[" + udafCount + "]")
+    log.info("found and registered UDFs count[" + udfCount + "], UDAFs count[" + udafCount + "]")
   }
 }

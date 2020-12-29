@@ -13,8 +13,7 @@ import io.github.interestinglab.waterdrop.apis._
 import scala.util.{Failure, Success, Try}
 import util.control.Breaks._
 
-class ConfigBuilder(configFile: String, logInfo: String => Unit) {
-
+class ConfigBuilder(configFile: String, logInfo: String => Unit, variableConfig: Option[Config] = None) {
   val config = load()
 
   def load(): Config = {
@@ -35,18 +34,19 @@ class ConfigBuilder(configFile: String, logInfo: String => Unit) {
         case true =>
           ConfigFactory
             .parseFile(defaultFile)
-            .resolve(ConfigResolveOptions.defaults().setAllowUnresolved(true))
-            .resolveWith(ConfigFactory.systemProperties, ConfigResolveOptions.defaults.setAllowUnresolved(true))
       }
 
       var config = ConfigFactory
         .parseFile(new File(configFile))
-        .resolve(ConfigResolveOptions.defaults().setAllowUnresolved(true))
-        .resolveWith(ConfigFactory.systemProperties, ConfigResolveOptions.defaults.setAllowUnresolved(true))
 
       defaultConfig.foreach { c =>
         config = config.withFallback(c)
       }
+
+      variableConfig.foreach { c =>
+        config = config.resolveWith(c, ConfigResolveOptions.defaults.setAllowUnresolved(true))
+      }
+      config = config.resolve(ConfigResolveOptions.defaults().setAllowUnresolved(true))
 
       val options: ConfigRenderOptions = ConfigRenderOptions.concise.setFormatted(true)
       logInfo("parsed config file: " + config.root().render(options))

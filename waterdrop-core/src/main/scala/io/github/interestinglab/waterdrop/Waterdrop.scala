@@ -3,8 +3,8 @@ package io.github.interestinglab.waterdrop
 import java.io.File
 
 import io.github.interestinglab.waterdrop.apis._
-import io.github.interestinglab.waterdrop.config.Config
 import io.github.interestinglab.waterdrop.config._
+import io.github.interestinglab.waterdrop.config.impl.ConfigImpl
 import io.github.interestinglab.waterdrop.filter.UdfRegister
 import io.github.interestinglab.waterdrop.utils.CompressionUtils
 import org.apache.commons.lang3.exception.ExceptionUtils
@@ -35,7 +35,7 @@ object Waterdrop extends Logging {
             println("config OK !")
           }
           case false => {
-            Try(entrypoint(configFilePath, cmdArgs.sleepSeconds)) match {
+            Try(entrypoint(configFilePath, cmdArgs)) match {
               case Success(_) => {}
               case Failure(exception) => {
                 exception match {
@@ -99,10 +99,21 @@ object Waterdrop extends Logging {
     }
   }
 
-  private def entrypoint(configFile: String, sleepSeconds: Option[Int]): Unit = {
+  private def getVariableConfig(varList: List[String]) = {
+    var varsConfig = ConfigImpl.emptyConfig("")
+    varList.foreach{ v =>
+      val con = ConfigFactory.parseString(v)
+      con.entrySet().foreach{ entry =>
+        varsConfig = varsConfig.withValue(entry.getKey, entry.getValue)
+      }
+    }
+    ConfigImpl.emptyConfig("").withValue("vars", varsConfig.root())
+  }
+
+  private def entrypoint(configFile: String, commandLineArgs: CommandLineArgs): Unit = {
     initLog(configFile)
 
-    val configBuilder = new ConfigBuilder(configFile, msg => logInfo(msg))
+    val configBuilder = new ConfigBuilder(configFile, msg => logInfo(msg), Option(getVariableConfig(commandLineArgs.variables)))
     val sparkConf = createSparkConf(configBuilder)
     val kvs = sparkConf.getAll.map(entry => {
       val (key, value) = entry
@@ -125,7 +136,7 @@ object Waterdrop extends Logging {
     if (streamingInputs.nonEmpty) {
       streamingProcessing(sparkSession, configBuilder, staticInputs, streamingInputs, filters, outputs)
     } else {
-      batchProcessing(sparkSession, configBuilder, staticInputs, filters, outputs, sleepSeconds)
+      batchProcessing(sparkSession, configBuilder, staticInputs, filters, outputs, commandLineArgs.sleepSeconds)
     }
   }
 

@@ -24,6 +24,7 @@ object CommandLineUtils {
       .optional()
       .text("variable substitution, such as -i city=beijing, or -i date=20190318")
       .maxOccurs(Integer.MAX_VALUE)
+      .action((x, c) => c.copy(variables = c.variables ++ List(x)))
     opt[String]('q', "queue")
       .optional()
       .text("spark queue")
